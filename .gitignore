@@ -1,0 +1,8 @@
+#Visual Studio Code
+.vscode/
+
+#Recursos del programa
+resources/
+
+#Construccion final del programa
+build/
