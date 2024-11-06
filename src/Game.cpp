@@ -189,44 +189,52 @@ int Game::randomNumbers(int inferiorLimit, int superiorLimit, std::set<int> &use
  */  
 
 
+
 std::vector<Game::SnakeData> Game::snakeDimensions() {
-    std::vector<Game::SnakeData> retorno;
+    std::vector<SnakeData> retorno;
 
     for(int i = 0; i < snakesAmount; i++) {
-        // Coordenadas de la cabeza (top) y cola (bottom) de la serpiente
+        // Obtener las coordenadas de la cabeza y la cola
         int topX = snakePointers[i]->coordx;
-        int topY = snakePointers[i]->coordy;
         int bottomX = snakePointers[i]->bottom->coordx;
+        int topY = snakePointers[i]->coordy;
         int bottomY = snakePointers[i]->bottom->coordy;
 
-        // Calcular la distancia entre cabeza y cola
-        int deltaX = bottomX - topX;
-        int deltaY = bottomY - topY;
-        double length = sqrt(deltaX * deltaX + deltaY * deltaY);
-
-        // Calcular el ángulo en grados
-        double angle = atan2(deltaY, deltaX) * 180 / M_PI;
-
-        // Crear el rectángulo para representar la serpiente
+        // Variables para la distancia y el ángulo
+        int a, b;
+        double angle;
         SDL_Rect tempDest;
-        tempDest.w = 10; // Ancho fijo del rectángulo (puedes ajustar este valor)
-        tempDest.h = static_cast<int>(length); // Altura igual a la longitud de la serpiente
-        tempDest.x = topX - (tempDest.w / 2); // Posición X centrada en la cabeza
-        tempDest.y = topY; // Posición Y en la cabeza
+        tempDest.w = boxWidth / 2;  // Ancho ajustado de la serpiente
 
-        // Centro de rotación en la parte superior del rectángulo (donde está la cabeza)
-        SDL_Point center;
-        center.x = tempDest.w / 2;
-        center.y = 0;
+        // Calcular la distancia entre la cabeza y la cola
+        if(bottomX > topX) {
+            // La cabeza está a la izquierda de la cola, la rotación será hacia la derecha
+            a = bottomX - topX;
+            b = bottomY - topY;
+            tempDest.h = sqrt(a * a + b * b);  // Distancia entre la cabeza y la cola
+            angle = atan2(b, a) * 180 / M_PI;  // Calculamos el ángulo en grados
+        } else if(topX > bottomX) {
+            // La cabeza está a la derecha de la cola, la rotación será hacia la izquierda
+            a = topX - bottomX;
+            b = bottomY - topY;
+            tempDest.h = sqrt(a * a + b * b);  // Distancia entre la cabeza y la cola
+            angle = atan2(b, -a) * 180 / M_PI;  // Calculamos el ángulo en grados y ajustamos el signo
+        } else {
+            // Caso especial: cuando la cabeza y la cola están alineadas verticalmente
+            tempDest.h = std::abs(bottomY - topY);  // Altura es la diferencia en Y
+            angle = (bottomY > topY) ? 90 : -90;  // Si la cola está abajo, rotación hacia abajo, sino hacia arriba
+        }
 
-        // Guardar los datos calculados
-        retorno.push_back({tempDest, angle, center});
+        // Calcular la posición del centro para la rotación
+        tempDest.x = topX + (bottomX - topX) / 2;
+        tempDest.y = topY;
+
+        // Guardamos los resultados de las serpientes y su ángulo de rotación
+        retorno.push_back({tempDest, angle});
     }
 
     return retorno;
 }
-
-
 
 int Game::getSnakesAmount(){
     return snakesAmount;

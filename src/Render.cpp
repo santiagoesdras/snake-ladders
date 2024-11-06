@@ -179,21 +179,40 @@ void Render::pauseMenu(bool isMenuOpen){
 }
 
 void Render::printSnakeAndLadders() {
-    std::vector<Game::SnakeData> snakeData = utilities->snakeDimensions();
-    
-    for (int i = 0; i < utilities->getSnakesAmount(); ++i) {
-        SDL_Rect temp = snakeData[i].rect;
-
-        // Establecer el color del rectángulo (rojo)
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Rojo con opacidad completa
-
-        // Dibujar el rectángulo relleno (para crear la serpiente visualmente)
-        SDL_RenderFillRect(renderer, &temp); // Rectángulo relleno
+    SDL_Texture* tempTexture = loadImages();
+    utilities->generateSnakesAndLadders();
+    // Verificar que la textura se haya cargado correctamente
+    if (!tempTexture) {
+        std::cerr << "No se pudo cargar la textura para las serpientes." << std::endl;
+        return;  // Salir de la función si no se pudo cargar la textura
     }
+
+    // Obtener las dimensiones de las serpientes y sus ángulos
+    std::vector<Game::SnakeData> snakeData = utilities->snakeDimensions();
+    int snakesAmount = utilities->getSnakesAmount();
+
+    // Comprobamos si el número de serpientes coincide con las dimensiones
+    if (snakeData.size() != snakesAmount) {
+        std::cerr << "Error: La cantidad de serpientes no coincide con las dimensiones proporcionadas." << std::endl;
+        SDL_DestroyTexture(tempTexture);  // Liberar la textura si hay un error
+        return;
+    }
+
+    // Iteramos para renderizar las serpientes
+    for (int i = 0; i < snakesAmount; i++) {
+        SDL_Rect dest = snakeData[i].rect;
+        double angle = snakeData[i].angle;  // Obtiene el ángulo calculado
+
+        // Calculamos el centro de la textura
+        SDL_Point center = { dest.w / 2 , dest.h / 2 };  // Centrado de la textura
+
+        // Renderizamos la serpiente con la rotación aplicada
+        SDL_RenderCopyEx(renderer, tempTexture, nullptr, &dest, angle, &center, SDL_FLIP_NONE);
+    }
+
+    // Liberar la textura después de renderizar
+    SDL_DestroyTexture(tempTexture);
 }
-
-
-
 
 
 SDL_Texture* Render::loadImages() {
