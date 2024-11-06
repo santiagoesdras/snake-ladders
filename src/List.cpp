@@ -22,6 +22,30 @@ void List::Add(int x, int y, int n){
     size++;
 }
 
+Box* List::getItem(int index) const {
+    if (index < 0) {
+        std::cerr << "Error: índice negativo no válido en getItem." << std::endl;
+        return nullptr;
+    }
+    
+    Box* current = this->header;
+    int contador = 0;
+    while (current) {
+        if (contador == index) {
+            return current;
+        }
+        contador++;
+        current = current->next;
+    }
+
+    // Si el índice está fuera de rango
+    std::cout << "El indice fuera de rango es: " << index << std::endl;
+    std::cerr << "Error: índice fuera de rango en getItem." << std::endl;
+    system("pause");
+    return nullptr;
+}
+
+
 void List::Clear(){
     Box* current = header;
     while(current){

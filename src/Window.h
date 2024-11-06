@@ -1,18 +1,27 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <SDL.h>
 #include <iostream>
+#include <SDL.h>
+#include "List.h"
+#include "Render.h"
+
+class Game;
 
 class Window{
-    private:
-    SDL_Renderer* render;
-    int ancho;
-    int altura;
+    protected:
+        Game* utilities1;
+        SDL_Window* window;
+        SDL_Renderer* renderer;
+        int windowWidth;
+        int windowHeight;
+        bool playing;
+        bool isMenuOpen;
     public:
-    int principalWindow(int altura, int ancho, int boxNumber);
-    void printBackground(SDL_Renderer* render, int boxNumber);
-    std::array<std::string, 3> numberBlits(int boxNumber);
-    void printNumbers(SDL_Renderer* render, int x, int y, int h, int w, std::array<std::string, 3> rutas);
+        Window(int wW, int wH, Game* u);
+        ~Window();
+        void listener();
+        bool initialiceSdl();
+        void clearSdl();
 };
 #endif

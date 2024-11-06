@@ -2,24 +2,17 @@
 #define LIST_H
 
 #include <iostream>
+#include "Box.h"
 
 class List{
     private:
-        struct Box{
-            std::string type;
-            int number = 0;
-            int coordx = 0;
-            int coordy = 0;
-            Box* next;
-            Box(int x, int y, int n): 
-            type("ordinary"), number(n), coordx(x), coordy(y), next(nullptr){}
-        };
         Box* header;
         int size;
     public:
         List();
         ~List();
         void Add(int x, int y, int n);
+        Box *getItem(int index) const;
         void Clear();
         int getSize() const;
 };

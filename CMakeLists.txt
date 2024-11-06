@@ -11,7 +11,7 @@ include_directories(${SDL2_DIR}/include)
 link_directories(${SDL2_DIR}/lib)
 
 # Agrega el archivo fuente principal y otros archivos fuente
-add_executable(SnakeAndLadders src/main.cpp src/Window.cpp src/Queues.cpp src/List.cpp)
+add_executable(SnakeAndLadders src/main.cpp src/Game.cpp src/Window.cpp src/Render.cpp src/Queues.cpp src/List.cpp)
 
 # Enlaza las librerías de SDL2
 target_link_libraries(SnakeAndLadders mingw32 SDL2main SDL2)
