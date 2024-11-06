@@ -1,0 +1,3 @@
+C:/Users/PC-JUANCHO/Desktop/Tareas/Segundo semestre/Programacion Avanzada/Practica/Proyecto2/build/CMakeFiles/SnakeAndLadders.dir
+C:/Users/PC-JUANCHO/Desktop/Tareas/Segundo semestre/Programacion Avanzada/Practica/Proyecto2/build/CMakeFiles/edit_cache.dir
+C:/Users/PC-JUANCHO/Desktop/Tareas/Segundo semestre/Programacion Avanzada/Practica/Proyecto2/build/CMakeFiles/rebuild_cache.dir
