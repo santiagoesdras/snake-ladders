@@ -63,15 +63,14 @@ std::array<std::string, 3> Game::getNumberRoutes(int boxNumber){
 }
 
 void Game::printBoxes(){
+    std::cout << "Cantidad casillas especiales: " << snakesAmount + laddersAmount << std::endl;
     for(int i = 0; i < boxes.getSize(); i++){
         Box* tempBox = boxes.getItem(i);
-        std::cout << "Propiedades de la casilla almacenada en el indice " << i << std::endl;
-        std::cout << "Coordenada en x: " << tempBox->coordx << std::endl;
-        std::cout << "Coordenada en y: " << tempBox->coordy << std::endl;
-        std::cout << "Numero de casilla: " << tempBox->number << std::endl;
-        std::cout << "Tipo de casilla: " << tempBox->type << std::endl;
-        std::cout << "Direccion de memoria top: " << tempBox << std::endl;
-        std::cout << "Direccion de memoria bottom: " << tempBox->bottom << std::endl;
+        if(tempBox->type == "HEAD-SNAKE" || tempBox->type == "TOP-LADDER"){
+            std::cout << "Tipo de casilla: " << tempBox->type << std::endl;
+            std::cout << "Numero de casillas: " << tempBox->number << std::endl;
+            std::cout << "Continuacion: " << tempBox->bottom->number << std::endl;
+        }
     }
 }
 
@@ -89,7 +88,7 @@ void Game::generateSnakesAndLadders(){
     int bottomLadders[laddersAmount];
     int topLadders[laddersAmount];
     int inferiorLimit = columns + 1;
-    int superiorLimit =  boxNumber - 1;
+    int superiorLimit =  boxNumber - 2;
     int inferiorLimit1 = 1;
     int superiorLimit1 = 0;
     std::set<int> usedNumbers;
@@ -99,8 +98,6 @@ void Game::generateSnakesAndLadders(){
         headSnakes[i] = randomNumbers(inferiorLimit, superiorLimit, usedNumbers);
         superiorLimit1 = (headSnakes[i] - (headSnakes[i] % columns));
         tailSnakes[i] = randomNumbers(inferiorLimit1, superiorLimit1, usedNumbers);
-        std::cout << "Cabeza serpiente no." << i <<": " << headSnakes[i] << std::endl;
-        std::cout << "Cola serpiente no." << i << ": " << tailSnakes[i] << std::endl;
     }
 
     inferiorLimit1 = 2;
@@ -112,16 +109,16 @@ void Game::generateSnakesAndLadders(){
         inferiorLimit = (bottomLadders[i] + (columns - (bottomLadders[i] % columns)));
         superiorLimit = boxNumber - 1;
         topLadders[i] = randomNumbers(inferiorLimit, superiorLimit, usedNumbers);
-        std::cout << "Base escalera no" << i << ": " << bottomLadders[i] << std::endl;
-        std::cout << "Tope escalera no" << i << ": " << topLadders[i] << std::endl;
     }
 
     //Carga de punteros a serpientes y escaleras en arreglos de punteros a serpientes y escaleras
     for(int i = 0; i < snakesAmount; i ++){
-
+        int index = (boxNumber - headSnakes[i] - 1);
+        if(index < 1 || index > 99){
+            index = randomNumbers(inferiorLimit, superiorLimit, usedNumbers);
+        }
         //Cargar serpientes al arreglo de punteros a casillas de tipo serpiente
-        Box* tempBox = boxes.getItem((boxNumber - headSnakes[i] - 1));
-        std::cout << "Numero de casilla del puntero actual" << tempBox->number << std::endl;
+        Box* tempBox = boxes.getItem(index);
         if(!tempBox){
             std::cout << "Error: Puntero tempbox para serpientes vacio" << std::endl;
             std::cout << "Indice al que se trato de acceder: " << (boxNumber - headSnakes[i] - 1) << std::endl;
@@ -131,6 +128,22 @@ void Game::generateSnakesAndLadders(){
         tempBox->type = "HEAD-SNAKE";
         tempBox->bottom = boxes.getItem(boxNumber - tailSnakes[i] - 1);
         snakePointers[i] = tempBox;
+
+        int index1 = (boxNumber - topLadders[i] - 1);
+        if(index1 < 1 || index1 > 99){
+            index = randomNumbers(inferiorLimit1, superiorLimit1, usedNumbers);
+        }
+        //Carga escacleras al arreglo de punteros a casillas de tipo serpiente
+        Box* tempBox1 = boxes.getItem(index1);
+        if(!tempBox1){
+            std::cout << "Error: Puntero a tempbox para serpientes vacio" << std::endl;
+            std::cout << "Inice al que se trato de acceder: " << (boxNumber - topLadders[i] - 1) << std::endl;
+            std::cout << "Numero asignado en headsnakes: " << topLadders[i] << std::endl;
+            system("pause");
+        }
+        tempBox1->type = "TOP-LADDER";
+        tempBox1->bottom = boxes.getItem((boxNumber - bottomLadders[i] - 1));
+        snakePointers[i] = tempBox1;
     } 
 }
 

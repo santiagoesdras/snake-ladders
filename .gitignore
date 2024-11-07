@@ -5,3 +5,15 @@
 resources/
 
 #Construccion final del programa
+build/CMakeFiles
+build/0.svg
+build/cmake_install.cmake
+build/CMakeCache.txt
+build/Makefile
+build/SnakeAndLadders.ex
+build/CMakeFiles
+build/0.svg
+build/cmake_install.cmake
+build/CMakeCache.txt
+build/Makefile
+build/SnakeAndLadders.exe

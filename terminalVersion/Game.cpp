@@ -98,3 +98,11 @@ void Game::displayBoard() {
     std::cout << "Displaying the board..." << std::endl;
     // Lógica para mostrar el tablero
 }
+
+void Game::splitSpecialBoxes() {
+    std::uniform_int_distribution<> specialBoxesPercent(10, 25);
+    int percent = boxNumber * specialBoxesPercent(gen) / 100;
+    std::uniform_int_distribution<> specialBoxesAmount(1, percent / 1.5);
+    snakesAmount = specialBoxesAmount(gen);
+    laddersAmount = percent - snakesAmount;
+}

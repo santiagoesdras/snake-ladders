@@ -2,8 +2,8 @@
 
 Render::Render(int wW, int wH, int rows, int columns, SDL_Renderer* r, Game* u):
         windowWidth(wW), windowHeight(wH), renderer(r), utilities(u){
-        boxWidth = wH / 10;
-        boxHeight = wH / 10;
+        boxWidth = wH / columns;
+        boxHeight = wH / rows;
         boxNumber = 10 * 10;
     }
 
