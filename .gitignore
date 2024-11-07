@@ -4,8 +4,13 @@
 #Recursos del programa
 resources/
 
-#Construccion final del programa
-build/
+#Excluir archivos innecesarios en build final del programa
+build/CMakeFiles/
+build/0.svg
+build/cmake_install.cmake
+build/CMakeCache.txt
+build/Makefile
+build/SnakeAndLadders.exe
 
 #Incluir archivo dll para libreria SDL
 !build/SDL2.dll
