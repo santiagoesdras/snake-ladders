@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\SnakeAndLadders.dir/objects.a
-C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\SnakeAndLadders.dir/objects.a @CMakeFiles\SnakeAndLadders.dir\objects1.rsp
-C:\msys64\ucrt64\bin\c++.exe -Wl,--whole-archive CMakeFiles\SnakeAndLadders.dir/objects.a -Wl,--no-whole-archive -o SnakeAndLadders.exe -Wl,--out-implib,libSnakeAndLadders.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\SnakeAndLadders.dir\linkLibs.rsp
