@@ -51,5 +51,7 @@ class Game{
         std::vector<SnakeData> snakeDimensions();
         int getSnakesAmount();
         int getLaddersAmount();
+        int getRows();
+        int getColumns();
 };
 #endif

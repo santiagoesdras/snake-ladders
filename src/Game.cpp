@@ -114,7 +114,7 @@ void Game::generateSnakesAndLadders(){
     //Carga de punteros a serpientes y escaleras en arreglos de punteros a serpientes y escaleras
     for(int i = 0; i < snakesAmount; i ++){
         int index = (boxNumber - headSnakes[i] - 1);
-        if(index < 1 || index > 99){
+        if(index < 1 || index > boxNumber + 1){
             index = randomNumbers(inferiorLimit, superiorLimit, usedNumbers);
         }
         //Cargar serpientes al arreglo de punteros a casillas de tipo serpiente
@@ -130,13 +130,13 @@ void Game::generateSnakesAndLadders(){
         snakePointers[i] = tempBox;
 
         int index1 = (boxNumber - topLadders[i] - 1);
-        if(index1 < 1 || index1 > 99){
+        if(index1 < 1 || index1 > boxNumber + 1){
             index = randomNumbers(inferiorLimit1, superiorLimit1, usedNumbers);
         }
         //Carga escacleras al arreglo de punteros a casillas de tipo serpiente
         Box* tempBox1 = boxes.getItem(index1);
         if(!tempBox1){
-            std::cout << "Error: Puntero a tempbox para serpientes vacio" << std::endl;
+            std::cout << "Error: Puntero a tempbox para escaleras vacio" << std::endl;
             std::cout << "Inice al que se trato de acceder: " << (boxNumber - topLadders[i] - 1) << std::endl;
             std::cout << "Numero asignado en headsnakes: " << topLadders[i] << std::endl;
             system("pause");
@@ -255,4 +255,12 @@ int Game::getSnakesAmount(){
 
 int Game::getLaddersAmount(){
     return laddersAmount;
+}
+
+int Game::getRows(){
+    return rows;
+}
+
+int Game::getColumns(){
+    return columns;
 }

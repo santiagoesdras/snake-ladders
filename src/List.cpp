@@ -18,8 +18,8 @@ void List::Add(int x, int y, int n){
             temp = temp->next;
         }
         temp->next = newBox;
-        std::cout << "Casilla, no." <<  n << " añadida a lista." << std::endl;
     }
+    std::cout << "Casilla, no." <<  n << " añadida a lista." << std::endl;
     size++;
 }
 

@@ -9,7 +9,9 @@ Window::Window(int wW, int wH, Game* u):
     if(!initialiceSdl()){
         std::cout << "Error al inicializar SDL" << std::endl;
     }
-    renderizado = new Render(windowWidth, windowHeight, 10, 10, renderer, utilities1);
+    int rows = utilities1->getRows();
+    int columns = utilities1->getColumns();
+    renderizado = new Render(windowWidth, windowHeight, rows, columns, renderer, utilities1);
 }
 
 Window::~Window(){

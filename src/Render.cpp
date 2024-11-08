@@ -4,7 +4,7 @@ Render::Render(int wW, int wH, int rows, int columns, SDL_Renderer* r, Game* u):
         windowWidth(wW), windowHeight(wH), renderer(r), utilities(u){
         boxWidth = wH / columns;
         boxHeight = wH / rows;
-        boxNumber = 10 * 10;
+        boxNumber = rows * columns;
     }
 
 Render::~Render(){}
@@ -37,8 +37,6 @@ void Render::createBackground(){
 
     //Configurar el renderizador para dibujar sobre la textura del tablero
     SDL_SetRenderTarget(renderer, backgroundTexture);
-
-    //Dibujar el tablero sobre la textura 
 
     //Definir las dimensiones y coordenadas para las casillas del tablero
     SDL_Rect background;
