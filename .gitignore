@@ -2,7 +2,7 @@
 .vscode/
 
 #Recursos del programa
-resources/
+resources/SDL_LIBRARIES
 
 #Excluir archivos innecesarios en build final del programa
 build/CMakeFiles/
@@ -18,3 +18,4 @@ build/SnakeAndLadders.exe
 !build/numbers/
 !build/players/
 !build/snakes/
+!resources/portada.png
